@@ -1,4 +1,4 @@
-name: CI
+name: Test_Actions_test
 
 on:
   push:
