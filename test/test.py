@@ -1,6 +1,6 @@
 import pytest
 
-class Productas:
+class Vol_31:
     def __init__(self, flpl_call_sign=None, flpl_depr_airp=None, flpl_arrv_airp=None,
                  airc_type=None, aobt=None, eobt=None, file_date=None, flight_state=None,
                  flight_type=None, ifps_registration_mark=None, initial_flight_rule=None,
@@ -20,7 +20,7 @@ class Productas:
         self.nm_tactical_id = nm_tactical_id
 
 def test_init():
-    newvol = Productas(
+    newvol = Vol_31(
         flpl_call_sign='ABC123',
         flpl_depr_airp='JFK',
         flpl_arrv_airp='LAX',
