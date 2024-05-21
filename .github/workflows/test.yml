@@ -11,10 +11,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version:
-          - 3.7
+          - 3.10
           - 3.8
           - 3.9
-          - 3.10
           - 3.11
           - 3.12-dev
           - pypy-3.7
@@ -26,6 +25,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+  # Add a cache clearing step here (adjust based on your CI provider)
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
