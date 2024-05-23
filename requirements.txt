@@ -1,5 +1,3 @@
 pandas
-os
-re
 datetime
 numpy
