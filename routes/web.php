@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/vol_allft/{vol_allft}/edit', [Vol_allftController::class, 'edit'])->name('vol_allft.edit');
 	Route::put('/vol_allft/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
 	Route::delete('/vol_allft/{vol_allft}/destroy', [Vol_allftController::class, 'destroy'])->name('vol_allft.destroy');
+	Route::get('/vol_allft/import', [Vol_allftController::class, 'showImportForm'])->name('vol_allft.importForm');
+	Route::post('/vol_allft/import', [Vol_allftController::class, 'import'])->name('vol_allft.import');
 
 
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

@@ -29,11 +29,11 @@
             <tbody>
               @foreach($vol_allft_paginate as $vol)
               <tr>
-                <td>{{ $vol->Call_sign }}</td>
-                <td>{{ $vol->A_dep }}</td>
-                <td>{{ $vol->A_des }}</td>
+                <td>{{ $vol->call_sign }}</td>
+                <td>{{ $vol->a_dep }}</td>
+                <td>{{ $vol->a_des }}</td>
                 <td>{{ $vol->heure_entree }}</td>
-                <td>{{ $vol->Immatriculation }}</td>
+                <td>{{ $vol->immatriculation }}</td>
                 <td>
                   <form method="post" action="{{ route('vol_allft.destroy', ['vol_allft' => $vol->id]) }}">
                     @csrf
@@ -169,8 +169,8 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{ $vol->Date_file }}</td>
-                      <td>{{ $vol->Date_flight }}</td>
+                      <td>{{ $vol->date_file }}</td>
+                      <td>{{ $vol->date_flight }}</td>
                       <td>{{ $vol->adresse_mac }}</td>
                       <td>{{ $vol->ifpl_id }}</td>
                       <td>{{ $vol->code_examption }}</td>
