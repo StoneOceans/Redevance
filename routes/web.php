@@ -42,14 +42,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/vol_stan/create', [Vol_stanController::class, 'create'])->name('vol_stan.create');
 	Route::post('/vol_stan', [Vol_stanController::class, 'store'])->name('vol_stan.store');
 	Route::get('/vol_stan/{vol_stan}/edit', [Vol_stanController::class, 'edit'])->name('vol_stan.edit');
-	Route::post('/vol_stan/{vol_stan}/update', [Vol_stanController::class, 'update'])->name('vol_stan.update');
+	Route::put('/vol_stan/{vol_stan}/update', [Vol_stanController::class, 'update'])->name('vol_stan.update');
 	Route::delete('/vol_stan/{vol_stan}/destroy', [Vol_stanController::class, 'destroy'])->name('vol_stan.destroy');
 
-	Route::get('/vol_allft', [Vol_allftController::class, 'index'])->name('vol_allft.index');
+	Route::get('/vol_allft/index/{id?}', [Vol_allftController::class, 'index'])->name('vol_allft.index');
 	Route::get('/vol_allft/create', [Vol_allftController::class, 'create'])->name('vol_allft.create');
-	Route::post('/vol_allft', [Vol_allftController::class, 'store'])->name('vol_allft.store');
+	Route::post('/vol_allft/index', [Vol_allftController::class, 'store'])->name('vol_allft.store');
 	Route::get('/vol_allft/{vol_allft}/edit', [Vol_allftController::class, 'edit'])->name('vol_allft.edit');
-	Route::post('/vol_allft/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
+	Route::put('/vol_allft/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
 	Route::delete('/vol_allft/{vol_allft}/destroy', [Vol_allftController::class, 'destroy'])->name('vol_allft.destroy');
 
 

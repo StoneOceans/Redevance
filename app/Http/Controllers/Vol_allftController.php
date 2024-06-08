@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product3;
+use App\Models\VolAllft;
 
 class Vol_allftController extends Controller
 {
-    public function index()
+    public function index($id = null)
     {
-        $vol_allft = Product3::all();
-        return view('vol_allft.index', ['vol_allft' => $vol_allft]); // Changed variable name to 'vol_allft'
+        $vol_allft = VolAllft::all();
+        $vol_allft_paginate = VolAllft::simplepaginate(5); // Paginate with 5 items per page
+        return view('vol_allft.index', ['vol_allft_paginate' => $vol_allft_paginate,'vol_allft' => $vol_allft, 'id' => $id]); // Changed variable name to 'vol_allft'
+
     }
 
     public function create()
@@ -34,17 +36,17 @@ class Vol_allftController extends Controller
         'code_operateur' => 'nullable|string|max:25',
     ]);
 
-    $newVol = Product3::create($data);
+    $newVol = VolAllft::create($data);
 
     return redirect(route('vol_allft.index'));
 }
 
-public function edit(Product3 $vol_allft)
+public function edit(Vol_Allft $vol_allft)
 {
     return view('vol_allft.edit', ['vol_allft' => $vol_allft]);
 }
 
-public function update(Product3 $vol_allft, Request $request)
+public function update(Vol_Allft $vol_allft, Request $request)
 {
     $data = $request->validate([
         'Call_sign' => 'nullable|string|max:25',
@@ -68,7 +70,7 @@ public function update(Product3 $vol_allft, Request $request)
 }
 
 
-    public function destroy(Product3 $vol_allft)
+    public function destroy(Vol_Allft $vol_allft)
     {
         $vol_allft->delete();
         return redirect(route('vol_allft.index'))->with('success', 'Product Deleted Successfully');
