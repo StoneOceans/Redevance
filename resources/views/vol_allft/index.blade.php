@@ -32,7 +32,7 @@
                 <td>{{ $vol->call_sign }}</td>
                 <td>{{ $vol->a_dep }}</td>
                 <td>{{ $vol->a_des }}</td>
-                <td>{{ $vol->heure_entree }}</td>
+                <td>{{ $vol->heure_de_reference }}</td>
                 <td>{{ $vol->immatriculation }}</td>
                 <td>
                   <form method="post" action="{{ route('vol_allft.destroy', ['vol_allft' => $vol->id]) }}">
@@ -68,31 +68,23 @@
                         <input type="hidden" name="_method" value="PUT">
                         <div class="form-group">
                           <label>Call Sign</label>
-                          <input type="text" class="form-control" name="Call_sign" placeholder="Call Sign" value="{{ $vol->Call_sign }}" />
+                          <input type="text" class="form-control" name="Call_sign" placeholder="Call Sign" value="{{ $vol->call_sign }}" />
                         </div>
                         <div class="form-group">
                           <label>A_dep</label>
-                          <input type="text" class="form-control" name="A_dep" placeholder="A_dep" value="{{ $vol->A_dep }}" />
+                          <input type="text" class="form-control" name="A_dep" placeholder="A_dep" value="{{ $vol->a_dep }}" />
                         </div>
                         <div class="form-group">
                           <label>A_des</label>
-                          <input type="text" class="form-control" name="A_des" placeholder="A_des" value="{{ $vol->A_des }}" />
+                          <input type="text" class="form-control" name="A_des" placeholder="A_des" value="{{ $vol->a_des }}" />
                         </div>
                         <div class="form-group">
                           <label>heure_entree</label>
-                          <input type="text" class="form-control" name="heure_entree" placeholder="heure_entree" value="{{ $vol->heure_entree }}" />
+                          <input type="text" class="form-control" name="heure_entree" placeholder="heure_entree" value="{{ $vol->heure_de_reference }}" />
                         </div>
                         <div class="form-group">
                           <label>Immatriculation</label>
-                          <input type="text" class="form-control" name="Immatriculation" placeholder="Immatriculation" value="{{ $vol->Immatriculation }}" />
-                        </div>
-                        <div class="form-group">
-                          <label>Date_file</label>
-                          <input type="text" class="form-control" name="Date_file" placeholder="Date_file" value="{{ $vol->Date_file }}" />
-                        </div>
-                        <div class="form-group">
-                          <label>Date_flight</label>
-                          <input type="text" class="form-control" name="Date_flight" placeholder="Date_flight" value="{{ $vol->Date_flight }}" />
+                          <input type="text" class="form-control" name="Immatriculation" placeholder="Immatriculation" value="{{ $vol->immatriculation }}" />
                         </div>
                         <div class="form-group">
                           <label>adresse_mac</label>
@@ -137,13 +129,6 @@
             </tbody>
           </table>
         </div>
-        <div class="card" id="hoverCard" style="display:none; position:absolute;">
-          <div class="card-header">
-            <h5 class="card-title">Flight Details</h5>
-          </div>
-            <div class="table-responsive">
-          </div>
-        </div>
       </div>
     </div>
     {!! $vol_allft_paginate->links() !!}
@@ -159,8 +144,6 @@
                 <table class="table tablesorter" id="">
                   <thead class="text-primary">
                     <tr>
-                      <th>Date_file</th>
-                      <th>Date_flight</th>
                       <th>adresse_mac</th>
                       <th>ifpl_id</th>
                       <th>code_examption</th>
@@ -169,92 +152,112 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{ $vol->date_file }}</td>
-                      <td>{{ $vol->date_flight }}</td>
                       <td>{{ $vol->adresse_mac }}</td>
                       <td>{{ $vol->ifpl_id }}</td>
                       <td>{{ $vol->code_examption }}</td>
                       <td>{{ $vol->code_operateur }}</td>
                     </tr>
-                        </div>
-                      </div>
-                    </div>
                   </tbody>
                 </table>
+                <div class="tab">
+                  <button class="tablinks" onclick="openCity(event, 'rang')">Rang de la transaction operateur</button>
+                  <button class="tablinks" onclick="openCity(event, 'texte')">Texte de la transaction operateur</button>
+                  <button class="tablinks" onclick="openCity(event, 'accuse')">Accuse TRT de la transaction operateur </button>
+                </div>
+                <div id="rang" class="tabcontent">
+                  <p>{{ $vol->finaltransaction }}</p>
+                </div>
+                <div id="texte" class="tabcontent">
+                  <p>{{ $vol->case7 }}</p>
+                  <p>{{ $vol->case8 }}</p>
+                  <p>{{ $vol->case9 }}</p>
+                  <p>{{ $vol->case10 }}</p>
+                  <p>{{ $vol->case13 }}</p>
+                  <p>{{ $vol->case15 }}</p>
+                  <p>{{ $vol->case16 }}</p>
+                  <p>{{ $vol->case18 }}</p>
+                </div>
+                <div id="accuse" class="tabcontent">
+                  <p>{{ $vol->heure }}</p>
+                  <p>{{ $vol->minute }}</p>
+                  <p>{{ $vol->accuseTrttransaction }}</p>
+                  <p>{{ $vol->ccrArrival }}</p>
+                </div>
+                <style>
+                    body {font-family: Arial;color: #6D769C;}
+
+                    /* Style the tab */
+                    .tab {
+                      overflow: hidden;
+                      background-color: #191C24;
+                    }
+
+                    /* Style the buttons inside the tab */
+                    .tab button {
+                      background-color: inherit;
+                      float: left;
+                      border: none;
+                      outline: none;
+                      cursor: pointer;
+                      padding: 14px 16px;
+                      transition: 0.3s;
+                      font-size: 17px;
+                      color: #6A7191;
+                    }
+
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                      background-color: #2A2F3C;
+                    }
+
+                    /* Create an active/current tablink class */
+                    .tab button.active {
+                      background-color: #2E3442;
+                    }
+
+                    /* Style the tab content */
+                    .tabcontent {
+                      display: none;
+                      padding: 6px 12px;
+                      -webkit-animation: fadeEffect 1s;
+                      animation: fadeEffect 1s;
+                    }
+
+                    /* Fade in tabs */
+                    @-webkit-keyframes fadeEffect {
+                      from {opacity: 0;}
+                      to {opacity: 1;}
+                    }
+
+                    @keyframes fadeEffect {
+                      from {opacity: 0;}
+                      to {opacity: 1;}
+                    }
+                    </style>
+                    <script>
+                    function openCity(evt, cityName) {
+                      var i, tabcontent, tablinks;
+                      tabcontent = document.getElementsByClassName("tabcontent");
+                      for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                      }
+                      tablinks = document.getElementsByClassName("tablinks");
+                      for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                      }
+                      document.getElementById(cityName).style.display = "block";
+                      evt.currentTarget.className += " active";
+                    }
+                    </script>
+                
               @endif
             @endforeach
           @else
-          <p> Aucun vol selectionné</p>
+          <p> Aucun vol sélectionné</p>
           @endif
-        </div>
-        <div class="card" id="hoverCard" style="display:none; position:absolute;">
-          <div class="card-header">
-            <h5 class="card-title">Flight Details</h5>
-          </div>
-          <div class="card-body">
-            <p><strong>Call Sign:</strong> <span id="cardCallSign"></span></p>
-            <p><strong>A_dep:</strong> <span id="cardADep"></span></p>
-            <p><strong>A_des:</strong> <span id="cardADes"></span></p>
-            <p><strong>heure_entree:</strong> <span id="cardHeureEntree"></span></p>
-            <p><strong>Immatriculation:</strong> <span id="cardImmatriculation"></span></p>
-            <p><strong>Rang de la transaction operateur:</strong> <span id="cardRangTransactionOperateur"></span></p>
-            <p><strong>Texte de la transaction operateur:</strong> <span id="cardTexteTransactionOperateur"></span></p>
-            <p><strong>Accuse TRT de la transaction operateur:</strong> <span id="cardAccuseTRTTransactionOperateur"></span></p>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 @endsection
-
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  const viewButtons = document.querySelectorAll('.view-button');
-  const hoverCard = document.getElementById('hoverCard');
-
-  viewButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      const row = button.closest('tr');
-      const callSign = row.querySelector('td:nth-child(1)').innerText;
-      const aDep = row.querySelector('td:nth-child(2)').innerText;
-      const aDes = row.querySelector('td:nth-child(3)').innerText;
-      const heureEntree = row.querySelector('td:nth-child(4)').innerText;
-      const immatriculation = row.querySelector('td:nth-child(5)').innerText;
-      const rangTransactionOperateur = row.dataset.rangTransactionOperateur;
-      const texteTransactionOperateur = row.dataset.texteTransactionOperateur;
-      const accuseTRTTransactionOperateur = row.dataset.accuseTRTTransactionOperateur;
-
-      document.getElementById('cardCallSign').innerText = callSign;
-      document.getElementById('cardADep').innerText = aDep;
-      document.getElementById('cardADes').innerText = aDes;
-      document.getElementById('cardHeureEntree').innerText = heureEntree;
-      document.getElementById('cardImmatriculation').innerText = immatriculation;
-      document.getElementById('cardRangTransactionOperateur').innerText = rangTransactionOperateur;
-      document.getElementById('cardTexteTransactionOperateur').innerText = texteTransactionOperateur;
-      document.getElementById('cardAccuseTRTTransactionOperateur').innerText = accuseTRTTransactionOperateur;
-
-      const rect = row.getBoundingClientRect();
-      hoverCard.style.top = `${rect.bottom + window.scrollY}px`;
-      hoverCard.style.left = `${rect.left + window.scrollX}px`;
-      hoverCard.style.display = 'block';
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!hoverCard.contains(e.target) && !e.target.classList.contains('view-button')) {
-      hoverCard.style.display = 'none';
-    }
-  });
-});
-</script>
-
-<style>
-#hoverCard {
-  width: 1000px; /* Increased width */
-  height: 400px; /* Increased height */
-  z-index: 100;
-  border: 0px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-</style>
