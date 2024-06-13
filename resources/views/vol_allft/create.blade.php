@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.master')
 
 @section('content')
 <!DOCTYPE html>
@@ -24,31 +24,27 @@
         @csrf
         <div class="form-group">
             <label>Call Sign</label>
-            <input type="text" class="form-control" name="Call_sign" placeholder="Call Sign" />
+            <input type="text" class="form-control" name="call_sign" placeholder="call Sign" />
         </div>
         <div class="form-group">
             <label>A_dep</label>
-            <input type="text" class="form-control" name="A_dep" placeholder="A_dep" />
+            <input type="text" class="form-control" name="a_dep" placeholder="a_dep" />
         </div>
         <div class="form-group">
             <label>A_des</label>
-            <input type="text" class="form-control" name="A_des" placeholder="A_des" />
+            <input type="text" class="form-control" name="a_des" placeholder="a_des" />
         </div>
         <div class="form-group">
             <label>heure_entree</label>
-            <input type="text" class="form-control" name="heure_entree" placeholder="heure_entree" />
+            <input type="text" class="form-control" name="heure_de_reference" placeholder="heure_de_reference" />
         </div>
         <div class="form-group">
             <label>Immatriculation</label>
-            <input type="text" class="form-control" name="Immatriculation" placeholder="Immatriculation" />
+            <input type="text" class="form-control" name="immatriculation" placeholder="immatriculation" />
         </div>
         <div class="form-group">
             <label>Date_file</label>
-            <input type="text" class="form-control" name="Date_file" placeholder="Date_file" />
-        </div>
-        <div class="form-group">
-            <label>Date_flight</label>
-            <input type="text" class="form-control" name="Date_flight" placeholder="Date_flight" />
+            <input type="text" class="form-control" name="date_de_reference" placeholder="date_de_reference" />
         </div>
         <div class="form-group">
             <label>adresse_mac</label>

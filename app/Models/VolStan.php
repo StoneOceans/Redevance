@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vol_Allft extends Model
+class VolStan extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,7 @@ class Vol_Allft extends Model
         'Immatriculation',
         'Date_file',
         'Date_flight',
+        'pln_oaci',
         'adresse_mac',
         'ifpl_id',
         'code_examption',

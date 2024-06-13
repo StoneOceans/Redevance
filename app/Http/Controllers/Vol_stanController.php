@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product2;
+use App\Models\VolStan;
 
 class Vol_stanController extends Controller
 {
     public function index()
     {
-        $vol_stan = Product2::all();
+        $vol_stan = VolStan::all();
         return view('vol_stan.index', ['vol_stan' => $vol_stan]);   
     }
 
@@ -35,17 +35,17 @@ class Vol_stanController extends Controller
             'code_operateur' => 'nullable|string|max:25',
         ]);
 
-        $newVol = Product2::create($data);
+        $newVol = VolStan::create($data);
 
         return redirect(route('vol_stan.index'));
     }
 
-    public function edit(Product2 $vol_stan)
+    public function edit(VolStan $vol_stan)
     {
         return view('vol_stan.edit', ['vol_stan' => $vol_stan]);
     }
 
-    public function update(Product2 $vol_stan, Request $request)
+    public function update(VolStan $vol_stan, Request $request)
     {
         $data = $request->validate([
             'Call_sign' => 'nullable|string|max:25',
@@ -67,7 +67,7 @@ class Vol_stanController extends Controller
         return redirect(route('vol_stan.index'))->with('success', 'Vol Stan Updated Successfully');
     }
 
-    public function destroy(Product2 $vol_stan)
+    public function destroy(VolStan $vol_stan)
     {
         $vol_stan->delete();
         return redirect(route('vol_stan.index'))->with('success', 'Vol Stan Deleted Successfully');

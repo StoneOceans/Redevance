@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Vol_stanController;
 use App\Http\Controllers\Vol_allftController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\DataController;
 
@@ -22,8 +25,19 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $total_departures = DB::table('vol_allfts')->where('a_dep', 'LFPG')->count();
+
+    $total_arrivals = DB::table('vol_allfts')->where('a_des', 'LFPG')->count();
+
+    $total_operations = DB::table('vol_allfts')->count();
+
+    return view('welcome', [
+        'total_departures' => $total_departures,
+        'total_arrivals' => $total_arrivals,
+        'total_operations' => $total_operations
+    ]);
 })->middleware(['auth'])->name("dashboard");
+
 Route::get('/import',[DataController::class,'import'])->name('data.import');
 Route::get('/download',[DataController::class,'downloadfile'])->name('data.downloadfile');
 
@@ -48,14 +62,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/vol_allft/index/{id?}', [Vol_allftController::class, 'index'])->name('vol_allft.index');
 	Route::get('/vol_allft/create', [Vol_allftController::class, 'create'])->name('vol_allft.create');
 	Route::post('/vol_allft/index', [Vol_allftController::class, 'store'])->name('vol_allft.store');
-	Route::get('/vol_allft/{vol_allft}/edit', [Vol_allftController::class, 'edit'])->name('vol_allft.edit');
-	Route::put('/vol_allft/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
+	Route::get('/vol_allft/index/{vol_allft}/edit', [Vol_allftController::class, 'edit'])->name('vol_allft.edit');
+	Route::put('/vol_allft/index/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
 	Route::delete('/vol_allft/{vol_allft}/destroy', [Vol_allftController::class, 'destroy'])->name('vol_allft.destroy');
 	Route::get('/vol_allft/import', [Vol_allftController::class, 'showImportForm'])->name('vol_allft.importForm');
 	Route::post('/vol_allft/import', [Vol_allftController::class, 'import'])->name('vol_allft.import');
 
 
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+	// Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
@@ -104,3 +120,10 @@ Route::group(['middleware' => 'auth'], function () {
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.updates');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
