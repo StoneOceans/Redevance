@@ -122,6 +122,8 @@
             </div>
         </div>
     {!! $vol_allft_paginate->links() !!}
+    <a href="/downloads-pdf" id="downloadPdfsBtn">Download Flights PDF</a>
+
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Vols details</h4>
@@ -149,6 +151,7 @@
                     </tr>
                   </tbody>
                 </table>
+                
                 <div class="tab">
                   <button class="tablinks" onclick="openCity(event, 'rang')">Rang de la transaction operateur</button>
                   <button class="tablinks" onclick="openCity(event, 'texte')">Texte de la transaction operateur</button>
@@ -173,6 +176,7 @@
                   <p>{{ $vol->accuseTrttransaction }}</p>
                   <p>{{ $vol->ccrArrival }}</p>
                 </div>
+                
                 <style>
                     body {font-family: Arial;color: #6D769C;}
 

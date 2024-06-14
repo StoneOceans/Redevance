@@ -7,9 +7,8 @@ use App\Http\Controllers\Vol_stanController;
 use App\Http\Controllers\Vol_allftController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\FlightStatisticsController;
 use App\Http\Controllers\DataController;
-
 use App\Http\Controllers\ProfileController;
 
 
@@ -25,25 +24,31 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
+	$firstFiveFlights = DB::table('vol_allfts')->select('call_sign', 'a_dep', 'a_des', 'heure_de_reference', 'immatriculation')->orderBy('id')->limit(5)->get();
     $total_departures = DB::table('vol_allfts')->where('a_dep', 'LFPG')->count();
-
     $total_arrivals = DB::table('vol_allfts')->where('a_des', 'LFPG')->count();
-
     $total_operations = DB::table('vol_allfts')->count();
+    $total_ABI = DB::table('vol_allfts')->where('typePlnRDVC', 'ABI')->count();
+    $total_APL = DB::table('vol_allfts')->where('typePlnRDVC', 'APL')->count();
+    $total_RPL = DB::table('vol_allfts')->where('typePlnRDVC', 'RPL')->count();
+    $total_pln_finale = DB::table('vol_allfts')->where('typePlnStan', 'FPL')->count();
 
     return view('welcome', [
         'total_departures' => $total_departures,
         'total_arrivals' => $total_arrivals,
-        'total_operations' => $total_operations
+        'total_operations' => $total_operations,
+        'total_ABI' => $total_ABI,
+        'total_APL' => $total_APL,
+        'total_RPL' => $total_RPL,
+        'total_pln_finale' => $total_pln_finale,
     ]);
 })->middleware(['auth'])->name("dashboard");
 
-Route::get('/import',[DataController::class,'import'])->name('data.import');
-Route::get('/download',[DataController::class,'downloadfile'])->name('data.downloadfile');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
-	
+	Route::get('/downloads-pdf', [FlightStatisticsController::class, 'downloadsPDF']);
+	Route::get('/download-pdf', [FlightStatisticsController::class, 'downloadPDF']);
 	Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 	Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 	Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
