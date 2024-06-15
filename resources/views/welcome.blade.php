@@ -60,6 +60,7 @@
       <span class="value">{{ $total_operations }}</span>
     </div>
   </div>
+  @can('view-indicators')
   <div class="section">
     <h2 class="section-title">Type PLN</h2>
     <div class="indicator users">
@@ -87,31 +88,14 @@
       </div>
     </div>
   </div>
+  @endcan
   <div class="section">
     <h2 class="section-title">Flight Statistics</h2>
     <canvas id="myChart"></canvas>
   </div>
-  <a href="/download-pdf" id="downloadPdfBtn">Download Indicators PDF</a>
+  <a href="/download-pdf" id="downloadPdfBtn">Download  PDF</a>
 
   <!-- Add a button for exporting the chart -->
-<button id="exportBtn">Export Chart as Pdf</button>
-
-<script>
-document.getElementById('exportBtn').addEventListener('click', function() {
-    var url_base64 = document.getElementById('myChart').toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-
-    // The addImage method takes the base64 URL, format, x, y, width, height
-    pdf.addImage(url_base64, 'PNG', 15, 40, 180, 70);
-    pdf.save('chart.pdf');
-
-    // Optionally, send the image to the server to embed in PDF
-    document.getElementById('imageData').value = url_base64;
-    document.getElementById('formSubmit').submit(); // Submit form with base64 image data
-});
-
-</script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -125,7 +109,7 @@ document.getElementById('exportBtn').addEventListener('click', function() {
       const data = {
         labels: labels,
         datasets: [{
-          label: 'Nombre de vols (en centaines)',
+          label: 'Nombre de vols',
           data: dataValues,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',

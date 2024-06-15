@@ -38,10 +38,11 @@
         </div>
     </div>
     <div class="section">
-    <h2 class="section-title">Flight Statistics</h2>
-    <canvas id="myChart"></canvas>
-  </div>
-  <script>
+        <h2 class="section-title">Flight Statistics</h2>
+        <canvas id="myChart"></canvas>
+        <img src="/var/www/web/public/assets/images/chart.png" alt="Chart Image">
+    </div>
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
       const labels = [
         'LFPG', 'LFPO', 'LFMN', 'LEBL', 'LEPA', 'LEMD', 'EGKK', 'LEMG', 'LFML', 'EHAM'

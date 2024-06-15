@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.copy')
 
 @section('content')
 <div class="row">

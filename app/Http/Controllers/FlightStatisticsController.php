@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use DB;
-
 use PDF;
+use Log;
 
 class FlightStatisticsController extends Controller
 {
@@ -37,5 +37,38 @@ class FlightStatisticsController extends Controller
     
         return $pdf->download('flights.pdf');
     }
+
+    public function datetxt($date) {
+        $Flights = DB::table('vol_allfts')
+            ->select('call_sign', 'a_dep', 'a_des', 'heure_de_reference', 'immatriculation', 'date_de_reference')
+            ->where('date_de_reference', '=', $date)
+            ->orderBy('id')
+            ->get();
+
+        if($Flights->isEmpty()) {
+            Log::info("No flights found for the date: {$date}");
+            // Optionally, return a different response to indicate no data found
+            return response("No flights data available for the selected date: {$date}")
+                ->header('Content-Type', 'text/plain');
+        }
+
+        $content = "";
+
+        foreach ($Flights as $flight) {
+            $content .= "Call Sign: {$flight->call_sign}, Departure: {$flight->a_dep}, Destination: {$flight->a_des}, Time: {$flight->heure_de_reference}, Registration: {$flight->immatriculation}, Date: {$flight->date_de_reference}\n";
+        }
+
+        return response($content)
+            ->header('Content-Type', 'text/plain')
+            ->header('Content-Disposition', "attachment; filename=\"flights-${date}.txt\"");
+    }
+
+    
+    public function index()
+    {
+        return view('pdf.eurocontrol');
+    }
+
+    
     
 }

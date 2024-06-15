@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- App Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
     <style>
         .custom-card-size {
             margin: 10px auto; /* Reduced margin for a larger appearance */
@@ -66,13 +67,13 @@
                             <li><a class="nav-link" href="{{ route('dashboard') }}">Accueil</a></li>
                         @can('view-manage-users')
                             <li><a class="nav-link" href="{{ route('eurocontrol') }}">Eurocontrol</a></li>
+
                             <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            
                         @endcan
                         @can('view-manage-roles')
                             <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
                         @endcan
-
+                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -97,7 +98,6 @@
         </nav>
   
         <main class="py-4">
-            <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card custom-card-size">
@@ -107,7 +107,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </main>
           
     </div>
