@@ -82,7 +82,6 @@ class Vol_allftController extends Controller
             'ccrArrival' => 'nullable|string',
         ]);
 
-        $vol_allft = VolAllft::findOrFail($id);
         $vol_allft->update($data);
 
         return redirect(route('vol_allft.index'))->with('success', 'Vol Updated Successfully');
