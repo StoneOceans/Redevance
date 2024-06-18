@@ -10,6 +10,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\FlightStatisticsController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
+
 
 
 /*
@@ -24,7 +26,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-	$firstFiveFlights = DB::table('vol_allfts')->select('call_sign', 'a_dep', 'a_des', 'heure_de_reference', 'immatriculation')->orderBy('id')->limit(5)->get();
+	$firstFiveFlights = DB::table('vol_allfts')->select('call_sign', 'a_dep', 'a_des', 'heure_de_reference', 'immatriculation')->orderBy('id')->limit(20)->get();
     $total_departures = DB::table('vol_allfts')->where('a_dep', 'LFPG')->count();
     $total_arrivals = DB::table('vol_allfts')->where('a_des', 'LFPG')->count();
     $total_operations = DB::table('vol_allfts')->count();
@@ -69,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/vol_allft/index/{id?}', [Vol_allftController::class, 'index'])->name('vol_allft.index');
 	Route::get('/vol_allft/create', [Vol_allftController::class, 'create'])->name('vol_allft.create');
 	Route::post('/vol_allft/index', [Vol_allftController::class, 'store'])->name('vol_allft.store');
+	Route::get('/vol_allft/index/{vol_allft}/download', [Vol_allftController::class, 'downloadPdf'])->name('vol_allft.download');
 	Route::get('/vol_allft/index/{vol_allft}/edit', [Vol_allftController::class, 'edit'])->name('vol_allft.edit');
 	Route::put('/vol_allft/index/{vol_allft}/update', [Vol_allftController::class, 'update'])->name('vol_allft.update');
 	Route::delete('/vol_allft/{vol_allft}/destroy', [Vol_allftController::class, 'destroy'])->name('vol_allft.destroy');
@@ -78,6 +81,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+
+	Route::get('lastlogin', [TestController::class, 'lastlogin'])->name('users.lastlogin');
+	Route::get('pdf', [TestController::class, 'pdf'])->name('vol_allft.pdf');
+	Route::get('test', [TestController::class, 'test'])->name('test');
+
 	// Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);

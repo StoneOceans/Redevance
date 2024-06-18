@@ -1,5 +1,3 @@
-{{-- users/index.blade.php or a similar view file --}}
-
 @extends('layouts.master')
 
 @section('content')
@@ -9,7 +7,7 @@
             <h2>Users Management</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}">Create New User</a>
+            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
         </div>
     </div>
 </div>
@@ -25,7 +23,7 @@
    <th>No</th>
    <th>Name</th>
    <th>Email</th>
-   <th>Last Login</th>
+   <th>Last Login</th> <!-- Changed Lastlogin to Last Login for clarity -->
    <th>Roles</th>
    <th width="280px">Action</th>
  </tr>
@@ -34,10 +32,16 @@
     <td>{{ $index + 1 }}</td>
     <td>{{ $user->name }}</td>
     <td>{{ $user->email }}</td>
-    <td>{{ $user->last_login_at ? $user->last_login_at : "Ne s'est pas encore connecté" }}</td>
+    <td>
+        @if ($user->last_login_at)
+            {{ $user->last_login_at }} <!-- Adjust date format as needed -->
+        @else
+            Ne s'est pas encore connecté
+        @endif
+    </td>
     <td>
       @foreach ($user->roles as $role)
-        <span>{{ $role->name }}</span>{{ !$loop->last ? ', ' : '' }}
+        <span>{{ $role->name }}</span>{{ $loop->last ? '' : ', ' }}
       @endforeach
     </td>
     <td>
@@ -53,6 +57,6 @@
  @endforeach
 </table>
 
-{{ $data->links() }} {{-- Assuming you're using Laravel's pagination --}}
+{{ $data->links() }} {{-- Assuming 'links' method is used for pagination in Laravel 7+ --}}
 
 @endsection

@@ -26,7 +26,7 @@ class FlightStatisticsController extends Controller
         $firstFiveFlights = DB::table('vol_allfts')
             ->select('call_sign', 'a_dep', 'a_des', 'heure_de_reference', 'immatriculation',)
             ->orderBy('id')
-            ->limit(5)
+            ->limit(20)
             ->get();
     
         // Convert the data to an array and specify the key for the view.

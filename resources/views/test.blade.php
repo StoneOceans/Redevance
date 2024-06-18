@@ -89,6 +89,66 @@
     </div>
   </div>
   @endcan
+  <div class="section">
+    <h2 class="section-title">Flight Statistics</h2>
+    <canvas id="myChart"></canvas>
+  </div>
+  <a href="/download-pdf" id="downloadPdfBtn">Download  PDF</a>
 
+  <!-- Add a button for exporting the chart -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const labels = [
+        'LFPG', 'LFPO', 'LFMN', 'LEBL', 'LEPA', 'LEMD', 'EGKK', 'LEMG', 'LFML', 'EHAM'
+      ];
+      const dataValues = [
+        670, 354, 314, 311, 277, 255, 228, 191, 182, 174
+        // Include all other values as needed
+      ];
+      const data = {
+        labels: labels,
+        datasets: [{
+          label: 'Nombre de vols',
+          data: dataValues,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        },
+      };
+
+      new Chart(document.getElementById('myChart'), config);
+    });
+  </script>
 </body>
 @endsection

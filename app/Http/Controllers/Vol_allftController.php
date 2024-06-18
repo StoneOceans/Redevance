@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\VolAllft;
+use PDF;
 
 class Vol_allftController extends Controller
 {
@@ -25,7 +26,7 @@ class Vol_allftController extends Controller
             'call_sign' => 'nullable|string',
             'a_dep' => 'nullable|string',
             'a_des' => 'nullable|string',
-            'heure_de_reference' => 'nullable|string',
+            'heure_de_reference' => ['nullable', 'string', 'regex:/^(?:[01]\d|2[0-3])[0-5]\d$/'],
             'date_de_reference' => 'nullable|string',
             'immatriculation' => 'nullable|string',
             'adresse_mac' => 'nullable|string',
@@ -61,7 +62,7 @@ class Vol_allftController extends Controller
             'call_sign' => 'nullable|string',
             'a_dep' => 'nullable|string',
             'a_des' => 'nullable|string',
-            'heure_de_reference' => 'nullable|string',
+            'heure_de_reference' => ['nullable', 'string', 'regex:/^(?:[01]\d|2[0-3])[0-5]\d$/'],
             'date_de_reference' => 'nullable|string',
             'immatriculation' => 'nullable|string',
             'adresse_mac' => 'nullable|string',
@@ -81,6 +82,7 @@ class Vol_allftController extends Controller
             'ccrArrival' => 'nullable|string',
         ]);
 
+        $vol_allft = VolAllft::findOrFail($id);
         $vol_allft->update($data);
 
         return redirect(route('vol_allft.index'))->with('success', 'Vol Updated Successfully');
@@ -89,6 +91,13 @@ class Vol_allftController extends Controller
     {
         $vol_allft->delete();
         return redirect(route('vol_allft.index'))->with('success', 'Vol Deleted Successfully');
+    }
+
+    public function downloadPdf($id)
+    {
+    $vol = VolAllft::findOrFail($id);
+    $pdf = PDF::loadView('pdf.vol', compact('vol'));
+    return $pdf->download('vol-' . $vol->call_sign . '.pdf');
     }
 }
 

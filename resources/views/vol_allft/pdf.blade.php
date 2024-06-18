@@ -22,6 +22,7 @@
                               <th>Heure_entree</th>
                               <th>Immatriculation</th>
                               <th>Delete</th>
+                              <th>Download PDF</th> 
                               <th>Modify</th>
                               <th>Voir un vol</th>
                               
@@ -41,6 +42,11 @@
                                       @method('DELETE')
                                       <button type="submit" class="btn btn-danger">Delete</button>
                                   </form>
+                              </td>
+                              <td>
+                                  <a href="{{ route('vol_allft.download', $vol->id) }}" class="btn btn-info">
+                                      <i class="mdi mdi-download"></i> Download PDF
+                                  </a>
                               </td>
                               <td>
                                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $vol->id }}">Edit</button>
@@ -126,6 +132,7 @@
             </div>
         </div>
     {!! $vol_allft_paginate->links() !!}
+    <a href="/downloads-pdf" id="downloadPdfsBtn">Download Flights PDF</a>
 
     <div class="card">
       <div class="card-header">

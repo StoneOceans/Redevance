@@ -10,43 +10,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- App Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
     <style>
-        .custom-card-size {
-            margin: 10px auto; /* Reduced margin for a larger appearance */
-            padding: 20px; /* Ample padding inside the card */
-            max-width: 100%; /* Increased maximum width to make the card larger */
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2C3E50; /* Dark blue background */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
-
-        @media (max-width: 768px) {
-            .custom-card-size {
-                margin: 5px auto; /* Adjust margin for smaller screens */
-                padding: 10px; /* Adjust padding for smaller screens */
-                max-width: 100%; /* Card takes full width on smaller screens */
-            }
+        .navbar-brand img {
+            height: 50px; /* Adjust size as needed */
+        }
+        .navbar .navbar-nav .nav-link {
+            color: #FFFFFF; /* White text */
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+        .navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link:focus {
+            background-color: #1A5276; /* Slightly lighter blue for hover */
+        }
+        .dropdown-menu {
+            background-color: #2C3E50; /* Same dark blue for dropdown */
+        }
+        .dropdown-item {
+            color: #FFFFFF; /* White text */
+        }
+        .dropdown-item:hover {
+            background-color: #1A5276; /* Consistent hover effect */
         }
     </style>
 </head>
 <body>
- 
-<body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/logo.png" alt="Logo" style="height: 80px; vertical-align: middle;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="/logo.png" alt="Logo">
+                    Redevance
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-  
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-  
+                        <!-- Optionally add items here -->
                     </ul>
-  
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -56,36 +65,30 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-  
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
-                            <li><a class="nav-link" href="{{ route('vol_allft.index') }}">Liste de vols</a></li>
-                            <li><a class="nav-link" href="{{ route('dashboard') }}">Accueil</a></li>
-                        @can('view-manage-users')
-                            <li><a class="nav-link" href="{{ route('eurocontrol') }}">Eurocontrol</a></li>
-
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                        @endcan
-                        @can('view-manage-roles')
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                        @endcan
-                            
+                            <li class="nav-item"><a class="nav-link" href="{{ route('vol_allft.index') }}">Liste de vols</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Accueil</a></li>
+                            @can('view-manage-users')
+                                <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
+                            @endcan
+                            @can('view-manage-roles')
+                                <li class="nav-item"><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+                            @endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-  
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-  
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -96,7 +99,6 @@
                 </div>
             </div>
         </nav>
-  
         <main class="py-4">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
