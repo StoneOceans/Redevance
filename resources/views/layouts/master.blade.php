@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- App Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8d27c6a7d1.js" crossorigin="anonymous"></script>
     <style>
         /* Navbar Styles */
         .navbar {
