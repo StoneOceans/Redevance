@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h1>Survol Records</h1>
+        <h1>Liste de Vols pour la journée du {{ $selectedItem->flight_date }}</h1>
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Table des Survols</h4>
@@ -30,51 +30,53 @@
                         <tbody>
                             @foreach($items as $item)
                             <tr>
-                                @if ($selectedItem->id == $item->id)
-                                    <td style="background-color: cyan;">{{ $item->sequence_number }}</td>
-                                    <td style="background-color: cyan;">{{ $item->time_of_departure_entry }}</td>
-                                    <td style="background-color: cyan;">{{ $item->departure_aerodrome }}</td>
-                                    <td style="background-color: cyan;">{{ $item->arrival_aerodrome }}</td>
-                                    <td style="background-color: cyan;">{{ $item->flight_identification }}</td>
-                                    <td style="background-color: cyan;">{{ $item->type_of_aircraft }}</td>
-                                    <td style="background-color: cyan;">
-                                    <a href="{{ route('jour123survol.index', ['id' => $item->id]) }}" class="btn btn-info btn-sm">
-                                        <i class="mdi mdi-eye"></i> Voir
-                                    </a>
-                                    </td>
-                                    <td style="background-color: cyan;">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Modifier</button>
-                                    </td>
-                                    <td style="background-color: cyan;">
-                                        <form method="post" action="{{ route('jour123survol.destroy', ['jour123survol' => $item->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                                        </form>
-                                    </td>
-                                @else
-                                    <td>{{ $item->sequence_number }}</td>
-                                    <td>{{ $item->time_of_departure_entry }}</td>
-                                    <td>{{ $item->departure_aerodrome }}</td>
-                                    <td>{{ $item->arrival_aerodrome }}</td>
-                                    <td>{{ $item->flight_identification }}</td>
-                                    <td>{{ $item->type_of_aircraft }}</td>
-                                    <td>
-                                    <a href="{{ route('jour123survol.index', ['id' => $item->id]) }}" class="btn btn-info btn-sm">
-                                        <i class="mdi mdi-eye"></i> Voir
-                                    </a>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Modifier</button>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="{{ route('jour123survol.destroy', ['jour123survol' => $item->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                                        </form>
-                                    </td>
-                                @endif
+
+
+                                    @if ($selectedItem !== null && $selectedItem->id == $item->id)
+                                        <td style="background-color: cyan;">{{ $item->sequence_number }}</td>
+                                        <td style="background-color: cyan;">{{ $item->time_of_departure_entry }}</td>
+                                        <td style="background-color: cyan;">{{ $item->departure_aerodrome }}</td>
+                                        <td style="background-color: cyan;">{{ $item->arrival_aerodrome }}</td>
+                                        <td style="background-color: cyan;">{{ $item->flight_identification }}</td>
+                                        <td style="background-color: cyan;">{{ $item->type_of_aircraft }}</td>
+                                        <td style="background-color: cyan;">
+                                        <a href="{{ route('jour123survol.index', ['id' => $item->id]) }}" class="btn btn-info btn-sm">
+                                            <i class="mdi mdi-eye"></i> Voir
+                                        </a>
+                                        </td>
+                                        <td style="background-color: cyan;">
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Modifier</button>
+                                        </td>
+                                        <td style="background-color: cyan;">
+                                            <form method="post" action="{{ route('jour123survol.destroy', ['jour123survol' => $item->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                            </form>
+                                        </td>
+                                    @else
+                                        <td>{{ $item->sequence_number }}</td>
+                                        <td>{{ $item->time_of_departure_entry }}</td>
+                                        <td>{{ $item->departure_aerodrome }}</td>
+                                        <td>{{ $item->arrival_aerodrome }}</td>
+                                        <td>{{ $item->flight_identification }}</td>
+                                        <td>{{ $item->type_of_aircraft }}</td>
+                                        <td>
+                                        <a href="{{ route('jour123survol.index', ['id' => $item->id]) }}" class="btn btn-info btn-sm">
+                                            <i class="mdi mdi-eye"></i> Voir
+                                        </a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Modifier</button>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="{{ route('jour123survol.destroy', ['jour123survol' => $item->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 
                             </tr>
 

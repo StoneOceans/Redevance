@@ -71,9 +71,8 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item"><a class="nav-link" href="{{ route('vol_allft.index') }}">Liste de vols</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('jour123survol.index') }}">Jour 123 survol</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Accueil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('jour123survol.index') }}">Jour 123 survol</a></li>
                             @can('view-manage-users')
                                 <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                             @endcan
