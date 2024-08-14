@@ -3,10 +3,10 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h1><i class="fas fa-plane-departure"></i> Liste de Vols pour la journée du {{ $items[0]->flight_date }}</h1>
+        <h1><i class="fas fa-plane-departure"></i> Liste des vols pour la journée du {{ $items[0]->flight_date }}</h1>
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"><i class="fas fa-table"></i> Table des Survols</h4>
+                <h4 class="card-title"><i class="fas fa-table"></i> Vols soumis à redevance uniquement</h4>
             </div>
             <div class="card-body">
                 <a href="{{ route('jour123survol.create') }}" class="btn btn-primary">
@@ -65,12 +65,12 @@
                                     <td>{{ $item->type_of_aircraft }}</td>
                                     <td>
                                         <a href="{{ route('jour123survol.index', ['id' => $item->id]) }}" class="btn btn-info btn-sm">
-                                            <i class="fas fa-eye"></i> Voir
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                            <i class="fas fa-edit"></i> Modifier
+                                            <i class="fas fa-edit"></i>
                                         </button>
                                     </td>
                                     <td>
@@ -78,7 +78,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> Supprimer
+                                                <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
                                     </td>
