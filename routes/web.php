@@ -11,6 +11,7 @@ use App\Http\Controllers\FlightStatisticsController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\Jour123SurvolController;
 
 
 
@@ -77,6 +78,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/vol_allft/{vol_allft}/destroy', [Vol_allftController::class, 'destroy'])->name('vol_allft.destroy');
 	Route::get('/vol_allft/import', [Vol_allftController::class, 'showImportForm'])->name('vol_allft.importForm');
 	Route::post('/vol_allft/import', [Vol_allftController::class, 'import'])->name('vol_allft.import');
+	Route::resource('jour123survol', Jour123SurvolController::class);
+
 
 
 	Route::resource('roles', RoleController::class);
